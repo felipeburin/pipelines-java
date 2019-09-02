@@ -3,8 +3,7 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-trigger:
-- master
+trigger: none
 
 stages:
 - stage: Build
@@ -30,12 +29,15 @@ stages:
 - stage: Deploy
   displayName: Deploy
   jobs:
-    - job: Deploy
+    - deployment: Deploy
       displayName: Deploy
       pool:
         vmImage: 'ubuntu-latest'
       
-      steps:
-      - task: CmdLine@2
-        inputs:
-          script: 'echo Hello world'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: CmdLine@2
+                inputs:
+                  script: 'echo Hello world'
