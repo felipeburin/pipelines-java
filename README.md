@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/test-org-fb/project-test/_apis/build/status/felipeburin.pipelines-java?branchName=master)](https://dev.azure.com/test-org-fb/project-test/_build/latest?definitionId=1&branchName=master)
 
 # Contributing
 
