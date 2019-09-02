@@ -6,24 +6,36 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo Write your commands here
+stages:
+- stage: Build
+  displayName: Build
+  jobs:
+    - job: Build
+      displayName: Maven Package and Publish Artifacts
+      pool:
+        vmImage: 'ubuntu-latest'
       
-      echo Hello world
+      steps:
+      - task: Maven@3
+        inputs:
+          mavenPomFile: 'pom.xml'
+          mavenOptions: '-Xmx3072m'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          goals: 'package'
+
+- stage: Deploy
+  displayName: Deploy
+  jobs:
+    - job: Deploy
+      displayName: Deploy
+      pool:
+        vmImage: 'ubuntu-latest'
+      
+      steps:
+      - task: CmdLine@2
+        inputs:
+          script: 'echo Hello world'
