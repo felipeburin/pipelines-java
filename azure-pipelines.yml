@@ -33,7 +33,7 @@ stages:
       displayName: Deploy
       pool:
         vmImage: 'ubuntu-latest'
-      
+      environment: 'test-dev'
       strategy:
         runOnce:
           deploy:
